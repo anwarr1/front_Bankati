@@ -9,7 +9,7 @@ import { Devise } from '../model/devise.enum';
   providedIn: 'root',
 })
 export class CarteVirtuelleService {
-  private baseUrl = 'http://localhost:8043/gestion_portefeuille/carte_virtuelle'; // URL du backend
+  private baseUrl = 'https://portefeuille-service-production-1.up.railway.app/gestion_portefeuille/carte_virtuelle'; // URL du backend
 
   constructor(private http: HttpClient) {}
 

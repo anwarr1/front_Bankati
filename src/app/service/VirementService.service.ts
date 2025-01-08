@@ -10,7 +10,7 @@ import { Compte } from './PaiementEnLigneService.service';
     providedIn: 'root'
 })
 export class VirementService {
-    private baseUrl = 'http://localhost:8050/api/virements';  // Change to your API URL
+    private baseUrl = 'https://transaction-service-production-1.up.railway.app/api/virements';  // Change to your API URL
 
     constructor(private http: HttpClient) { }
 

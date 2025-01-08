@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class CryptoWalletServiceService {
 
-  private baseUrl = 'http://localhost:8043/gestion_portefeuille/cryptoWallet';
+  private baseUrl = 'https://portefeuille-service-production-1.up.railway.app/gestion_portefeuille/cryptoWallet';
   constructor(private http: HttpClient) {}
 
   genererCryptoWallet(CryptoWalletDTO: any){

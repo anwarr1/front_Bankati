@@ -9,10 +9,10 @@ import jwt_decode from 'jwt-decode';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8044/api/auth';
+  private apiUrl = 'http://https://users-service-production-1.up.railway.app/api/auth';
   private readonly TOKEN_KEY = 'token';
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) { }
 
   login(email: string, password: string): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.apiUrl}/login`, { email, password }).pipe(
@@ -44,7 +44,7 @@ export class AuthService {
   isAdmin(): boolean {
     const roles = this.getUserRole();
     return roles.includes('ADMIN'); // Adaptez en fonction du nom exact du rôle dans votre backend
-  } 
+  }
 
   hasRole(role: string): boolean {
     const userRoles = this.getUserRole();

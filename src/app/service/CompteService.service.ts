@@ -9,7 +9,7 @@ import { CompteDTO } from '../model/CompteDTO';
 })
 export class CompteService {
 
-  private baseUrl = 'http://localhost:8050/api/comptes';  // Change this to your backend API URL
+  private baseUrl = '=https://transaction-service-production-1.up.railway.app/api/comptes';  // Change this to your backend API URL
 
   constructor(private http: HttpClient) { }
 

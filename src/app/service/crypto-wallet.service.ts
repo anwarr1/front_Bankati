@@ -22,7 +22,7 @@ export interface CryptoWalletDTO {
   providedIn: 'root'
 })
 export class CryptoWalletService {
-  private baseUrl = 'http://localhost:8043/gestion_portefeuille/cryptoWallet'; // Ajustez l'URL selon votre configuration
+  private baseUrl = 'https://portefeuille-service-production-1.up.railway.app/gestion_portefeuille/cryptoWallet'; // Ajustez l'URL selon votre configuration
 
   constructor(private http: HttpClient) { }
 
@@ -71,7 +71,7 @@ export class CryptoWalletService {
   verifyPassword(mdp: string): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/verify?mdp=${mdp}`);
   }
-  getTransaction(id:number){
+  getTransaction(id: number) {
     return this.http.get<TransactionCrypto[]>(`${this.baseUrl}/transaction?id=${id}`);
   }
 }

@@ -12,9 +12,9 @@ import { Devise } from '../model/devise.enum';
   providedIn: 'root',
 })
 export class PortefeuilleService {
-  private baseUrl = 'http://localhost:8043/gestion_portefeuille/portefeuille';
+  private baseUrl = 'https://portefeuille-service-production-1.up.railway.app/gestion_portefeuille/portefeuille';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getPortefeuille(id: number): Observable<Portefeuille> {
     return this.http.get<Portefeuille>(`${this.baseUrl}/${id}`);
@@ -30,7 +30,7 @@ export class PortefeuilleService {
 
   ajouterCarte(id: number, carte: CarteVirtuelle): Observable<Portefeuille> {
     const params = new HttpParams().set('id', id.toString());
-    return this.http.post<Portefeuille>(`${this.baseUrl}/ajouterCarte?id=${id}`,{"carte" : carte });
+    return this.http.post<Portefeuille>(`${this.baseUrl}/ajouterCarte?id=${id}`, { "carte": carte });
   }
 
   deposer(portefeuille: Portefeuille, somme: number): Observable<Portefeuille> {
@@ -38,7 +38,7 @@ export class PortefeuilleService {
     return this.http.post<Portefeuille>(`${this.baseUrl}/deposer`, portefeuille, { params });
   }
 
-  retirer(id:number, somme: number): Observable<Portefeuille> {
+  retirer(id: number, somme: number): Observable<Portefeuille> {
     const params = new HttpParams().set('somme', somme.toString());
     return this.http.post<Portefeuille>(`${this.baseUrl}/retirer?id=${id}&somme=${somme}`, null);
   }
@@ -68,6 +68,6 @@ export class PortefeuilleService {
     return this.http.get<string>(`${this.baseUrl}/test`);
   }
   getTaux(base: string, target: string): Observable<number> {
-   return this.http.post<number>(`${this.baseUrl}/getTaux`, {base, target});
+    return this.http.post<number>(`${this.baseUrl}/getTaux`, { base, target });
   }
 }

@@ -11,8 +11,8 @@ import { Fournisseur } from '../model/Fournisseur.model';
     providedIn: 'root',
 })
 export class FactureService {
-    private baseUrl = 'http://localhost:8050/api/factures'; 
-    private baseUrlFournisseurs = 'http://localhost:8050/api/fournisseurs';
+    private baseUrl = 'https://transaction-service-production-1.up.railway.app/api/factures'; 
+    private baseUrlFournisseurs = 'https://transaction-service-production-1.up.railway.app/api/fournisseurs';
 
     constructor(private http: HttpClient) { }
 

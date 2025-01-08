@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {Client} from "../model/client.model";
+import { Client } from "../model/client.model";
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClientService {
-  private apiUrl = 'http://localhost:8044/api/clients';
+  private apiUrl = 'https://users-service-production-1.up.railway.app/api/clients';
 
   constructor(private http: HttpClient) { }
 
@@ -44,7 +44,7 @@ export class ClientService {
     // Si un token est présent, on l'ajoute à l'en-tête Authorization
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-    return this.http.post(`${this.apiUrl}/create`, formData,{ headers });
+    return this.http.post(`${this.apiUrl}/create`, formData, { headers });
   }
   getAllClients(): Observable<Client[]> {
     const token = localStorage.getItem('token');

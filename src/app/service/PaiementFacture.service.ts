@@ -8,7 +8,7 @@ import { PaiementFacture } from '../model/PaiementFacture.model';
 })
 export class PaiementFactureService {
 
-    private baseUrl = 'http://localhost:8050/api/paiements';  // Change to your backend URL
+    private baseUrl = 'https://transaction-service-production-1.up.railway.app/api/paiements';  // Change to your backend URL
 
     constructor(private http: HttpClient) { }
 

@@ -8,7 +8,7 @@ import {Agent} from "../model/agent.model";
   providedIn: 'root'
 })
 export class AgentService {
-  private apiUrl = 'http://localhost:8044/api/agents';
+  private apiUrl = 'https://users-service-production-1.up.railway.app/api/agents';
   private agentsSubject = new BehaviorSubject<Agent[]>([]);
   public agents$ = this.agentsSubject.asObservable();
 

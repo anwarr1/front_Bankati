@@ -9,7 +9,7 @@ import { TransactionAnalytics } from '../model/TransactionAnalytics';
     providedIn: 'root'
 })
 export class TransactionService {
-    private baseUrl = 'http://localhost:8050/api/transactions';  // Adjust to your backend URL
+    private baseUrl = 'https://transaction-service-production-1.up.railway.app/api/transactions';  // Adjust to your backend URL
 
     constructor(private http: HttpClient) { }
 
@@ -23,15 +23,15 @@ export class TransactionService {
         return this.http.put<Transaction>(`${this.baseUrl}/${id}/valider`, {});
     }
 
-    getRecentTransactions(id:number): Observable<TransactionAnalytics> {
-        return this.http.get<TransactionAnalytics>(`${this.baseUrl}/RecentTransaction/`+id);
-    }
-    
-    getSumTransactions(id:number): Observable<number> {
-        return this.http.get<number>(`${this.baseUrl}/SumTransaction/`+id);
+    getRecentTransactions(id: number): Observable<TransactionAnalytics> {
+        return this.http.get<TransactionAnalytics>(`${this.baseUrl}/RecentTransaction/` + id);
     }
 
-    getSumVirements(id:number): Observable<number> {
-        return this.http.get<number>(`${this.baseUrl}/SumVirement/`+id);
+    getSumTransactions(id: number): Observable<number> {
+        return this.http.get<number>(`${this.baseUrl}/SumTransaction/` + id);
+    }
+
+    getSumVirements(id: number): Observable<number> {
+        return this.http.get<number>(`${this.baseUrl}/SumVirement/` + id);
     }
 }

@@ -17,7 +17,7 @@ export interface PaiementEnLigne {
     providedIn: 'root',
 })
 export class PaiementEnLigneService {
-    private baseUrl = 'http://localhost:8080/api/paiements'; // Adjust the URL to match your backend endpoint
+    private baseUrl = 'https://transaction-service-production-1.up.railway.app/api/paiements'; // Adjust the URL to match your backend endpoint
 
     constructor(private http: HttpClient) { }
 
