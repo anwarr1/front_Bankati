@@ -15,13 +15,19 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) { }
 
   login(email: string, password: string): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, { email, password }).pipe(
+    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, { email, password }, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      withCredentials: true,  // Optional: if you need to send cookies
+    }).pipe(
       tap(response => {
-        localStorage.setItem('token', <string>response.token);
-      })
+        // Store the token securely
+        localStorage.setItem('token', response.token as string);
+      }),
+
     );
   }
-
   saveToken(token: string): void {
     sessionStorage.setItem(this.TOKEN_KEY, token); // Utilise sessionStorage au lieu de localStorage
   }
