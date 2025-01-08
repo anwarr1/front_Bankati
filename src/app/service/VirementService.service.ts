@@ -23,6 +23,6 @@ export class VirementService {
         return this.http.get<Compte>(`${this.baseUrl}/${rib}`);
     }
     testF(): Observable<any> {
-        return this.http.get("https://transaction-service-production-1.up.railway.app/api/factures/test");
+        return this.http.get("/api/factures/test");
     }
 }
