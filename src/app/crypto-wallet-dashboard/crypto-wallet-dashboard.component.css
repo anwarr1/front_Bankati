@@ -1,0 +1,364 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+:host {
+    display: block;
+    min-height: 100vh;
+}
+
+body {
+    min-height: 100vh;
+    background-color: #E4E9F7;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 300px;
+    padding: 25px;
+    background: #fff;
+    border-right: 1px solid #e0e0e0;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile {
+    padding: 25px 0;
+    border-bottom: 1px solid #e0e0e0;
+    text-align: center;
+}
+
+.profile .email {
+    font-size: 16px;
+    color: #666;
+}
+
+.menu-section {
+    margin-top: 30px;
+}
+
+.section-title {
+    color: #999;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    letter-spacing: 0.5px;
+}
+
+.sidebar ul {
+    list-style: none;
+    margin-top: 15px;
+}
+
+.sidebar ul li {
+    margin: 5px 0;
+}
+
+.sidebar ul li a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #666;
+    padding: 14px 15px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-size: 16px;
+}
+
+.sidebar ul li a:hover {
+    background: #4CAF50;
+    color: #fff;
+}
+
+.sidebar ul li a i {
+    font-size: 24px;
+    margin-right: 15px;
+    color: #666;
+}
+
+.sidebar ul li a:hover i {
+    color: #fff;
+}
+
+.container {
+    margin-left: 300px;
+    padding: 40px;
+    background-color: #F0F2F5;
+    min-height: 100vh;
+    transition: all 0.3s ease;
+}
+
+.stats-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 35px;
+    margin-bottom: 40px;
+}
+
+.stat-card {
+    background: white;
+    padding: 45px;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    gap: 35px;
+    position: relative;
+    overflow: hidden;
+    height: 200px;
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+}
+
+.stat-card.red::before { background-color: #FF6B6B; }
+.stat-card.yellow::before { background-color: #FFA94D; }
+.stat-card.green::before { background-color: #4CAF50; }
+.stat-card.purple::before { background-color: #845EF7; }
+
+.icon-wrapper {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat-card.red .icon-wrapper {
+    background-color: rgba(255, 107, 107, 0.1);
+    color: #FF6B6B;
+}
+
+.stat-card.yellow .icon-wrapper {
+    background-color: rgba(255, 169, 77, 0.1);
+    color: #FFA94D;
+}
+
+.stat-card.green .icon-wrapper {
+    background-color: rgba(76, 175, 80, 0.1);
+    color: #4CAF50;
+}
+
+.stat-card.purple .icon-wrapper {
+    background-color: rgba(132, 94, 247, 0.1);
+    color: #845EF7;
+}
+
+.icon-wrapper i {
+    font-size: 50px;
+}
+
+.stat-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-value {
+    font-size: 36px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    font-size: 16px;
+    color: #666;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Password Toggle Button */
+.password-toggle {
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.password-toggle:hover {
+    color: #4CAF50;
+}
+
+/* Transactions Card */
+.dashboard-grid {
+    margin-top: 40px;
+}
+
+.transactions-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    padding: 30px;
+}
+
+.transactions-card h3 {
+    color: #333;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 25px;
+}
+
+.transactions-table {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    text-align: left;
+    padding: 15px;
+    color: #666;
+    font-weight: 600;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+td {
+    padding: 15px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+}
+
+.user-avatar.red { background-color: #FF6B6B; }
+.user-avatar.green { background-color: #4CAF50; }
+
+.user-name {
+    font-weight: 500;
+    color: #333;
+}
+
+.status-badge {
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.status-badge.success { 
+    background-color: rgba(76, 175, 80, 0.1);
+    color: #4CAF50;
+}
+
+.status-badge.pending {
+    background-color: rgba(255, 169, 77, 0.1);
+    color: #FFA94D;
+}
+
+.status-badge.failed {
+    background-color: rgba(255, 107, 107, 0.1);
+    color: #FF6B6B;
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.action-button {
+    padding: 15px 30px;
+    border-radius: 10px;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+}
+
+.action-button i {
+    font-size: 24px;
+}
+
+.action-button.buy {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.action-button.sell {
+    background-color: #FF6B6B;
+    color: white;
+}
+
+.action-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .stats-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 250px;
+    }
+    
+    .container {
+        margin-left: 250px;
+    }
+    
+    .stats-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .action-buttons {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 576px) {
+    .sidebar {
+        width: 0;
+        padding: 0;
+    }
+    
+    .container {
+        margin-left: 0;
+    }
+}

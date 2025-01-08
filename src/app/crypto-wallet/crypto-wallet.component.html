@@ -1,0 +1,60 @@
+<body>
+  <div class="sidebar">
+    <div class="profile">
+      <span class="email">rix123&#64;gmail.com</span>
+    </div>
+  
+    <div class="menu-section">
+      <span class="section-title">MANAGE</span>
+      <ul>
+        <li><a routerLink="/dashboard"><i class='bx bx-grid-alt'></i>Dashboard</a></li>
+        <li><a routerLink="/cart"><i class='bx bx-credit-card'></i>Bank Card</a></li>
+        <li><a routerLink="/facture"><i class='bx bx-file'></i>Factures</a></li>
+        <li><a routerLink="/virement"><i class='bx bx-transfer'></i>Virement</a></li>
+        <li><a routerLink="/recharge"><i class='bx bx-refresh'></i>Recharge</a></li>
+        <li><a routerLink="/creancier"><i class='bx bx-user'></i>Creancier</a></li>
+      </ul>
+    </div>
+  
+    <div class="menu-section">
+      <span class="section-title">SETTINGS</span>
+      <ul>
+        <li><a routerLink="/profile"><i class='bx bx-user'></i>Profile</a></li>
+        <li><a (click)="logout()"><i class='bx bx-log-out'></i>Logout</a></li>
+      </ul>
+    </div>
+  </div>
+        <div class="crypto-portfolio">
+          <div class="left-section">
+            <img src="assets/pictures/Capture.PNG" alt="Crypto Character" class="character" />
+          </div>
+          <div class="right-section" style="  width: 1600px;">
+            <h1>Build Your Crypto Portfolio</h1>
+            <p>Start your first trade with these easy steps.</p>
+            <div class="step" (click)="navigateTo('fund-account')">
+              <div class="icon"><span>👤</span></div>
+              <div class="content">
+                <h3>Fund your account</h3>
+                <p>Add funds to your crypto account to start trading crypto. You can add funds with a variety of payment methods.</p>
+              </div>
+            </div>
+            <div class="step" (click)="navigateTo('verify-identity')">
+              <div class="icon"><span>🪪</span></div>
+              <div class="content">
+                <h3>Verify your identity</h3>
+                <p>Complete the identity verification process to secure your account and transactions.</p>
+              </div>
+            </div>
+            <div class="step" (click)="navigateTo('cryptoVirement')">
+              <div class="icon"><span>📈</span></div>
+              <div class="content">
+                <h3>Start trading</h3>
+                <p>You're good to go! Buy/sell crypto, set up recurring buys for your investments, and discover what Binance has to offer.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+  
+      </body>
+  

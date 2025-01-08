@@ -1,0 +1,103 @@
+<div class="sidebar">
+    <div class="profile">
+        <span class="email">Crypto Wallet</span>
+    </div>
+
+    <div class="menu-section">
+        <span class="section-title">NAVIGATION</span>
+        <ul>
+            <li><a routerLink="/crypto-wallet-dashboard"><i class='bx bx-arrow-back'></i>Retour Dashboard</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="container">
+    <div class="create-card">
+        <div class="card-header">
+            <div class="icon-wrapper">
+                <i [class]="isSellingMode ? 'bx bx-transfer-alt' : 'bx bx-purchase-tag'"></i>
+            </div>
+            <h2>{{ isSellingMode ? 'Vendre des Cryptos' : 'Acheter des Cryptos' }}</h2>
+        </div>
+        
+        <div class="card-body">
+            <form (ngSubmit)="onSubmit()" #tradeForm="ngForm">
+                <!-- Montant -->
+                <div class="form-group">
+                    <label for="amount">Montant {{ isSellingMode ? 'à vendre' : 'à acheter' }} (€)</label>
+                    <div class="input-group">
+                        <input type="number"
+                               id="amount"
+                               [(ngModel)]="amount"
+                               name="amount"
+                               required
+                               min="0"
+                               [max]="isSellingMode ? walletBalance : null"
+                               class="form-control"
+                               placeholder="Entrez le montant">
+                        <span class="currency-symbol">€</span>
+                    </div>
+                    <small class="info-text" *ngIf="amount > 0">
+                        ≈ {{ amount * this.rate }} MAD
+                    </small>
+                </div>
+
+
+
+                <!-- Mot de passe -->
+                <div class="form-group">
+                    <label for="password">Mot de passe du wallet</label>
+                    <div class="input-group">
+                        <input [type]="showPassword ? 'text' : 'password'"
+                               id="password"
+                               [(ngModel)]="password"
+                               name="password"
+                               required
+                               class="form-control"
+                               placeholder="Entrez votre mot de passe">
+                        <button type="button" 
+                                class="password-toggle" 
+                                (click)="togglePasswordVisibility()">
+                            <i [class]="showPassword ? 'bx bx-hide' : 'bx bx-show'"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Confirmation du mot de passe -->
+                <div class="form-group">
+                    <label for="confirmPassword">Confirmer le mot de passe</label>
+                    <div class="input-group">
+                        <input [type]="showConfirmPassword ? 'text' : 'password'"
+                               id="confirmPassword"
+                               [(ngModel)]="confirmPassword"
+                               name="confirmPassword"
+                               required
+                               class="form-control"
+                               placeholder="Confirmez votre mot de passe">
+                        <button type="button" 
+                                class="password-toggle" 
+                                (click)="toggleConfirmPasswordVisibility()">
+                            <i [class]="showConfirmPassword ? 'bx bx-hide' : 'bx bx-show'"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" 
+                            class="action-button submit" 
+                            [disabled]="!tradeForm.form.valid || password !== confirmPassword"
+                            (click)="processBuy()">
+                        <i [class]="isSellingMode ? 'bx bx-transfer-alt' : 'bx bx-purchase-tag'"></i>
+                        {{ isSellingMode ? 'Vendre' : 'Acheter' }}
+                    </button>
+                    <button type="button" 
+                            class="action-button cancel" 
+                            (click)="cancel()">
+                        <i class='bx bx-x-circle'></i>
+                        Annuler
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

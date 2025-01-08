@@ -1,0 +1,124 @@
+<div class="sidebar">
+    <div class="profile">
+        <span class="email">Crypto Wallet</span>
+    </div>
+
+    <div class="menu-section">
+        <span class="section-title">CRYPTO MANAGE</span>
+        <ul>
+            <li><a routerLink="/crypto-wallet-dashboard" class="active"><i class='bx bx-grid-alt'></i>Dashboard</a></li>
+            <li><a routerLink="/crypto-wallet-trade"><i class='bx bx-transfer'></i>Trading</a></li>
+            <li><a routerLink="/crypto_virement"><i class='bx bx-send'></i>Virement</a></li>
+        </ul>
+    </div>
+
+    <div class="menu-section">
+        <span class="section-title">NAVIGATION</span>
+        <ul>
+            <li><a routerLink="/dashboard"><i class='bx bx-home'></i>Retour Dashboard</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="container">
+    <div class="stats-cards">
+        <!-- Solde du Wallet -->
+        <div class="stat-card red">
+            <div class="icon-wrapper">
+                <i class='bx bx-wallet'></i>
+            </div>
+            <div class="stat-info">
+                <span class="stat-value">{{this.wallet.solde}} {{this.wallet.devise}}</span>
+                <span class="stat-label">Solde du Wallet</span>
+            </div>
+        </div>
+
+        <!-- Mot de passe -->
+        <div class="stat-card yellow">
+            <div class="icon-wrapper">
+                <i class='bx bx-lock'></i>
+            </div>
+            <div class="stat-info">
+                <span class="stat-value">{{showPassword ? this.wallet.mdp : '••••••'}}</span>
+                <span class="stat-label">
+                    <button class="password-toggle" (click)="togglePasswordVisibility()">
+                        <i [class]="showPassword ? 'bx bx-hide' : 'bx bx-show'"></i>
+                    </button>
+                    Mot de passe
+                </span>
+            </div>
+        </div>
+
+        <!-- Crypto achetées -->
+        <div class="stat-card green">
+            <div class="icon-wrapper">
+                <i class='bx bx-trending-up'></i>
+            </div>
+            <div class="stat-info">
+                <span class="stat-value">{{cryptoBought}}</span>
+                <span class="stat-label">Crypto Achetées</span>
+            </div>
+        </div>
+
+        <!-- Crypto vendues -->
+        <div class="stat-card purple">
+            <div class="icon-wrapper">
+                <i class='bx bx-trending-down'></i>
+            </div>
+            <div class="stat-info">
+                <span class="stat-value">{{cryptoSold}}</span>
+                <span class="stat-label">Crypto Vendues</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-grid">
+        <!-- Transactions Card -->
+        <div class="transactions-card">
+            <h3>Transactions Récentes</h3>
+            <div class="transactions-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Date</th>
+                            <th>Montant</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let transaction of transactions">
+                            <td>
+                                <div class="user-info">
+                                    <div class="user-avatar" [ngClass]="transaction.type === 'ACHAT' ? 'green' : 'red'">
+                                        {{transaction.type_transaction.charAt(0)}}
+                                    </div>
+                                    <div class="user-name">{{transaction.type_transaction}}</div>
+                                </div>
+                            </td>
+                            <td>{{transaction.date_transaction | date:'dd/MM/yyyy HH:mm'}}</td>
+                            <td>{{transaction.montant}} {{wallet.devise}}</td>
+                            <td>
+                                <span class="status-badge" [ngClass]="getStatusBadgeClass('COMPLETE')">
+                                    COMPLETE
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Boutons d'action -->
+    <div class="action-buttons">
+        <button class="action-button buy" (click)="navigateToBuy()">
+            <i class='bx bx-purchase-tag'></i>
+            Acheter des Cryptomonnaies
+        </button>
+        <button class="action-button sell" (click)="navigateToSell()">
+            <i class='bx bx-money'></i>
+            Vendre des Cryptomonnaies
+        </button>
+    </div>
+</div>

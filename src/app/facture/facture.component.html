@@ -1,0 +1,97 @@
+<body>
+  <div class="container">
+    <div class="sidebar">
+      <div class="profile">
+        <span class="email">rix123&#64;gmail.com</span>
+      </div>
+
+      <div class="menu-section">
+        <span class="section-title">MANAGE</span>
+        <ul>
+          <li><a routerLink="/dashboard"><i class='bx bx-grid-alt'></i>Dashboard</a></li>
+          <li><a routerLink="/cart"><i class='bx bx-credit-card'></i>Bank Card</a></li>
+          <li><a routerLink="/facture"><i class='bx bx-file'></i>Factures</a></li>
+          <li><a routerLink="/virement"><i class='bx bx-transfer'></i>Virement</a></li>
+          <li><a routerLink="/recharge"><i class='bx bx-refresh'></i>Recharge</a></li>
+          <li><a routerLink="/creancier"><i class='bx bx-user'></i>Creancier</a></li>
+        </ul>
+      </div>
+
+      <div class="menu-section">
+        <span class="section-title">SETTINGS</span>
+        <ul>
+          <li><a routerLink="/profile"><i class='bx bx-user'></i>Profile</a></li>
+          <li><a (click)="logout()"><i class='bx bx-log-out'></i>Logout</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <main>
+      <section class="invoice-section">
+        <div class="page-header">
+          <div class="header-content">
+            <div class="title-badge">
+              <i class='bx bx-receipt'></i>
+              <h2>Consultez et réglez vos factures dues</h2>
+            </div>
+            <div class="header-decoration"></div>
+          </div>
+        </div>
+
+        <!-- Show Spinner if Data is Loading -->
+        <div *ngIf="isLoading; else tableContent" class="loading-container">
+          <div class="spinner"></div>
+        </div>
+
+        <!-- Table Content -->
+        <ng-template #tableContent>
+          <div class="table-wrapper">
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th class="checkbox-column"><i class='bx bx-check-square'></i></th>
+                    <th><i class='bx bx-money'></i> Montant</th>
+                    <th><i class='bx bx-building-house'></i> Fournisseur</th>
+                    <th><i class='bx bx-calendar'></i> Date d'écheance</th>
+                    <th><i class='bx bx-info-circle'></i> Statut</th>
+                    <th><i class='bx bx-cog'></i> Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let facture of factures">
+                    <td class="checkbox-column">
+                      <label class="custom-checkbox">
+                        <input type="checkbox" [id]="'chk' + facture.id" />
+                        <span class="checkmark"></span>
+                      </label>
+                    </td>
+                    <td><span class="amount">{{ facture.montant }} DH</span></td>
+                    <td>{{ facture.fournisseur.nom }}</td>
+                    <td>{{ facture.dateLimite | date: 'dd/MM/yyyy' }}</td>
+                    <td><span [class]="'status-badge status-' + facture.statut">{{ facture.statut }}</span></td>
+                    <td *ngIf="facture.statut.toString() === 'PAYÉE'; else nonPaye">
+                      <span class="status-done"><i class='bx bx-check'></i></span>
+                    </td>
+                    <ng-template #nonPaye>
+                      <td>
+                        <button class="btn-primary" (click)="payerFacture(facture)">
+                          <i class='bx bx-credit-card'></i>
+                          <span>Payer</span>
+                        </button>
+                      </td>
+                    </ng-template>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <button id="payButton">
+              <i class='bx bx-check-double'></i>
+              <span>Payer les factures sélectionnées</span>
+            </button>
+          </div>
+        </ng-template>
+      </section>
+    </main>
+  </div>
+</body>

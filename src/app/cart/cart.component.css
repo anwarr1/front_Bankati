@@ -1,0 +1,541 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+}
+
+body {
+  width: 100vw;
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+  margin: 0;
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center; /* Center items horizontally */
+  background: #d4edda;
+  font-family: 'Arial', sans-serif;
+}
+.title {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 20px;
+  margin-top: 40px;
+  margin-right: 900px;
+  font-family: 'Roboto', serif;
+  font-size: 4rem;
+  font-weight: bold;
+  color: #043686;
+}
+/* Sidebar styles (updated) */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 300px;
+    padding: 25px;
+    background: #fff;
+    border-right: 1px solid #e0e0e0;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile {
+    padding: 25px 0;
+    border-bottom: 1px solid #e0e0e0;
+    text-align: center;
+}
+
+.profile .email {
+    font-size: 16px;
+    color: #666;
+}
+
+.menu-section {
+    margin-top: 30px;
+}
+
+.section-title {
+    color: #999;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    letter-spacing: 0.5px;
+}
+
+.sidebar ul {
+    list-style: none;
+    margin-top: 15px;
+}
+
+.sidebar ul li {
+    margin: 5px 0;
+    margin-bottom: 5px;
+}
+
+.sidebar ul li a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #666;
+    padding: 14px 15px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-size: 16px;
+}
+
+.sidebar ul li a:hover {
+    background: #4CAF50;
+    color: #fff;
+}
+
+.sidebar ul li a i {
+    font-size: 24px;
+    margin-right: 15px;
+    color: #666;
+}
+
+.sidebar ul li a:hover i {
+    color: #fff;
+}
+
+/* Ajustement du contenu principal */
+.container {
+    margin-left: 300px;
+    padding: 20px;
+}
+
+/* Style pour le lien actif */
+.sidebar ul li a.active {
+    background: #4CAF50;
+    color: #fff;
+}
+
+.sidebar ul li a.active i {
+    color: #fff;
+}
+
+.test {
+  margin-top: 70px;
+}
+
+.card-container {
+    background: #34495e;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 600px;
+    position: relative;
+    box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.1);
+    border-bottom: 6px solid #2c3e50;
+    border-right: 6px solid #2c3e50;
+    transition: 0.5s transform, 0.5s box-shadow;
+    margin: 10px;
+}
+
+.cards-wrapper {
+  display: flex; /* Use flexbox */
+  flex-direction: column; /* Stack children vertically */
+  align-items: center;  /* Center items horizontally (optional)*/
+  margin-left: 300px;
+}
+
+.header-section {
+    background: #4CAF50;
+    padding: 35px 30px;
+    color: white;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    width: 80%; /* Reduced width of the header */
+    position: relative;
+    z-index: 10;
+    margin: 0 auto; /* Centering the header */
+    justify-content: flex-end; /* Aligning the header content to the right */
+  margin-right: 100px;
+}
+
+.header-content {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0;
+    padding-left: 100px; /* Increased padding to shift header to the right */
+}
+
+.title-badge {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.title-badge i {
+    font-size: 35px;
+    color: #fff;
+}
+
+.title-badge h2 {
+    color: #fff;
+    font-size: 26px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.header-decoration {
+    width: 100px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+}
+
+/*Responsive styles*/
+@media screen and (max-width: 580px){
+  :root {
+    font-size: 12px;
+  }
+  .bank-name {
+    padding: 8px 15px;
+  }
+  .arrow {
+    border-top: 18px solid transparent;
+    border-bottom: 18px solid transparent;
+    border-right:15px solid white;
+  }
+}
+
+@media screen and (max-width: 460px){
+  :root {
+    font-size: 10px;
+  }
+  .bank-name {
+    padding: 5px 12px;
+  }
+  .arrow {
+    border-top: 13px solid transparent;
+    border-bottom: 13px solid transparent;
+    border-right:11px solid white;
+  }
+}
+
+@media screen and (max-width: 360px){
+  :root {
+    font-size: 8px;
+  }
+
+  .card-container {
+    border-bottom: 3px solid #2c3e50;
+    border-right: 3px solid #2c3e50;
+  }
+
+  .bank-name {
+    padding: 3px 8px;
+  }
+
+  .arrow {
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right:8px solid white;
+  }
+}
+
+.card {
+  position: relative;
+  padding-top: 60%;
+  overflow: hidden;
+}
+.chip {
+  position: absolute;
+  top: 35%;
+  left: 5%;
+  height: 23%;
+}
+
+.contactless {
+  position: absolute;
+  top: 40%;
+  left: 20%;
+  height: 15%;
+  transform: rotate(90deg);
+}
+
+.visa {
+  position: absolute;
+  bottom: 5%;
+  right: 5%;
+  height: 30%;
+}
+.card-number {
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  font-size: 2.5rem;
+  font-family: sans-serif;
+  color: white;
+  text-shadow: 0px 0px 5px black;
+}
+.arrow {
+  position: absolute;
+  top: 80%;
+  left: 5%;
+  width: 0;
+  height: 0;
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  border-right:17px solid white;
+}
+.card-name, .card-expire {
+  position: absolute;
+  left: 10%;
+  font-family: sans-serif;
+  color: white;
+  text-transform: uppercase;
+  text-shadow: 0px 0px 3px black;
+}
+
+.card-name {
+  top: 74%;
+  font-size: 1.3rem;
+}
+
+.card-expire {
+  top: 82%;
+  font-size: 1rem;
+}
+.bank-name {
+  margin: 0;
+  display: inline-block;
+  padding: 10px 20px;
+  padding-left: 5%;
+  position: absolute;
+  top: 10%;
+  left: 0;
+  font-size: 1.5rem;
+  font-family: sans-serif;
+  color: black;
+  font-weight: bold;
+  background-color: white;
+  min-width: 30%;
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+}
+.card::before {
+  content: "";
+  position: absolute;
+  display: inline-block;
+  background-color: white;
+  width: 50%;
+  height: 5%;
+  left: 0;
+  top: 26%;
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+  opacity: 0.5;
+}
+
+.card::after {
+  content: "";
+  position: absolute;
+  display: block;
+  background-color: white;
+  width: 200px;
+  height: 200px;
+  right: -75px;
+  top:-75px;
+  border-radius: 50%;
+  opacity: 0.05;
+}
+.card-container:hover {
+  transform: scale(1.1) rotate(3deg);
+  box-shadow: 10px 10px 10px 5px rgba(0,0,0,0.3);
+}
+
+.card-container.blue {
+  background-color: #5cb85c;
+  border-bottom: 6px solid #4cae4c;
+  border-right: 6px solid #4cae4c;
+}
+
+.card-container.gray {
+  background-color: #C0C0C0;
+  border-bottom: 6px solid #888;
+  border-right: 6px solid #888;
+}
+
+.card-container.gold {
+  background-color: #d4af37;
+  border-bottom: 6px solid #e0b526;
+  border-right: 6px solid #e0b526;
+}
+
+.card-container-wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 50px;  /* Use Flexbox for horizontal alignment */
+  width: 100%;
+  max-width: 1800px; /* Adjust as needed for card width */
+  margin-top: 200px; /* Add some spacing from sidebar */
+  justify-content: center; /* Centers items horizontally */
+  align-items: center; /* Centers items vertically (optional) */
+  margin-left: 300px;
+}
+
+.add-card-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.add-card-container img {
+  width: 150px;
+  height: 150px;
+}
+
+.create-card-text {
+  margin-top: 50px;
+  color: black;
+  font-family: "Times New Roman", Times, serif;
+  font-weight: bold;
+  font-size: 33px;
+}
+.button {
+  --main-focus: #2d8cf0;
+  --font-color: #323232;
+  --bg-color-sub: #dedede;
+  --bg-color: #eee;
+  --main-color: #323232;
+  position: relative;
+  width: 200px; /* Augmenté */
+  height: 60px; /* Augmenté */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border: 2px solid var(--main-color);
+  box-shadow: 4px 4px var(--main-color);
+  background-color: var(--bg-color);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 30px;
+  margin-bottom: -150px;
+  margin-left: 1930px;
+}
+
+.button, .button__icon, .button__text {
+  transition: all 0.3s;
+}
+
+.button .button__text {
+  transform: translateX(30px); /* Ajusté pour rester proportionnel */
+  color: var(--font-color);
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.button .button__icon {
+  position: absolute;
+  transform: translateX(140px); /* Ajusté */
+  height: 100%;
+  width: 60px; /* Augmenté */
+  background-color: var(--bg-color-sub);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button .svg {
+  width: 24px; /* Augmenté */
+  fill: var(--main-color);
+}
+
+.button:hover .button__icon {
+  width: 198px; /* Ajusté pour correspondre à la nouvelle largeur du bouton */
+  transform: translateX(0);
+}
+
+.card_alert {
+  width: 600px;
+  padding-right: 10px;
+  height: fit-content;
+  margin-top: 150px;
+  margin-left: 600px;
+  padding-bottom: 12px;
+  background: lightgrey;
+  border-left-style: solid;
+  border-left-color: red;
+  border-left-width: 5px;
+  border-radius: 15px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  background: linear-gradient(to right, #f7575756, #f7575725 50%, #f7575738);
+}
+
+.card_alert svg {
+  height: 40px;
+  padding-left: 10px;
+  padding-top: 12px;
+  fill: red;
+  float: left;
+}
+
+.card_alert p {
+  float: left;
+  padding-top: 13px;
+  padding-left: 10px;
+  color: white;
+  font-size: 20px;
+}
+
+.card_alert span {
+  display: flex;
+  align-items: left;
+}
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+:host {
+    display: block;
+    min-height: 100vh;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+:root {
+    --primary-color: #4CAF50;
+    --sidebar-color: #FFF;
+    --text-color: #707070;
+    --section-title-color: #999;
+}
+
+body {
+    min-height: 100vh;
+    background-color: #E4E9F7;
+}

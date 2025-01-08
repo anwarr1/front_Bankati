@@ -1,0 +1,125 @@
+<div class="sidebar">
+    <div class="profile">
+        <span class="email">rix123&#64;gmail.com</span>
+    </div>
+
+    <div class="menu-section">
+        <span class="section-title">MANAGE</span>
+        <ul>
+            <li><a routerLink="/dashboard"><i class='bx bx-grid-alt'></i>Dashboard</a></li>
+            <li><a routerLink="/cart"><i class='bx bx-credit-card'></i>Bank Card</a></li>
+            <li><a routerLink="/facture"><i class='bx bx-file'></i>Factures</a></li>
+            <li><a routerLink="/virement"><i class='bx bx-transfer'></i>Virement</a></li>
+            <li><a routerLink="/recharge"><i class='bx bx-refresh'></i>Recharge</a></li>
+            <li><a routerLink="/creancier"><i class='bx bx-user'></i>Creancier</a></li>
+        </ul>
+    </div>
+
+    <div class="menu-section">
+        <span class="section-title">SETTINGS</span>
+        <ul>
+            <li><a routerLink="/profile"><i class='bx bx-user'></i>Profile</a></li>
+            <li><a (click)="logout()"><i class='bx bx-log-out'></i>Logout</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="content">
+    <div class="container">
+        <div class="phone-container">
+            <div class="phone">
+                <div class="phone-header">
+                    <i class='bx bx-signal-4'></i>
+                    <i class='bx bx-wifi'></i>
+                    <i class='bx bx-battery-full'></i>
+                </div>
+                <div class="phone-content">
+                    <h2><i class='bx bx-mobile-alt pulse-icon'></i> Recharge Mobile</h2>
+                    
+                    <div class="form-group">
+                        <label><i class='bx bxs-bank'></i> Compte à débiter</label>
+                        <select class="input" [(ngModel)]="compte" name="compte" required>
+                            <option [ngValue]="null" disabled>Selection le compte débiteur</option>
+                            <option *ngFor="let compte of comptes" [ngValue]="compte">
+                              {{ compte.rib }} - {{ compte.bank }}
+                            </option>
+                          </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class='bx bx-phone glow-icon'></i> Numéro</label>
+                        <input type="tel" [(ngModel)]="phoneNumber" placeholder="Entrez le numéro">
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class='bx bx-broadcast glow-icon'></i> Opérateur</label>
+                        <select id="fournisseurId" [(ngModel)]="operator" name="operator">
+                            <option value="">-- Choisir un opérateur --</option>
+                            <option *ngFor="let fournisseur of creditors" [value]="fournisseur.id">
+                                {{ fournisseur.nom }}
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class='bx bx-money-withdraw glow-icon'></i> Montant</label>
+                        <div class="amount-input">
+                            <select id="rechargeAmount" [(ngModel)]="rechargeAmount" aria-label="Recharge Amount">
+                                <option value="">-- Choisir un montant --</option>
+                                <option value="5">5 DH</option>
+                                <option value="10">10 DH</option>
+                                <option value="20">20 DH</option>
+                                <option value="30">30 DH</option>
+                                <option value="40">40 DH</option>
+                                <option value="50">50 DH</option>
+                            </select>
+                            <span class="currency">MAD</span>
+                        </div>
+                    </div>
+
+                    <button class="submit-btn" [disabled]="isLoading" (click)="rechargePhone()">
+                        <ng-container *ngIf="!isLoading; else loading">
+                            <i class='bx bx-check-circle'></i>
+                            Recharger
+                        </ng-container>
+                        <ng-template #loading>
+                            <div class="spinner"></div>
+                        </ng-template>
+                    </button>
+                </div>
+                <div class="phone-footer">
+                    <div class="home-button"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Offers Modal -->
+<div class="modal" [class.open]="isModalOpen">
+    <div class="modal-content">
+        <span class="close-button" (click)="closeOffersModal()">×</span>
+        <h2>Offres disponibles</h2>
+        <div class="form-group">
+            <ul class="offers-list">
+                <li *ngFor="let offer of availableOffers; let i = index">
+                    <input type="radio" id="offer-{{ i }}" name="offers" value="{{ offer }}"
+                        [checked]="selectedOffer === offer" (change)="selectOffer(offer)">
+                    <label for="offer-{{ i }}">{{ offer }}</label>
+                </li>
+            </ul>
+        </div>
+        <div class="form-group">
+            <label for="account">Compte chèque</label>
+            <select id="account" [(ngModel)]="account" aria-label="Check Account">
+                <option value="">-- Choisir un compte --</option>
+                <option value="account1">Compte 1</option>
+                <option value="account2">Compte 2</option>
+            </select>
+        </div>
+        <div class="total">Total: {{ rechargeAmount }} DH</div>
+        <div class="form-group">
+            <button (click)="rechargePhone()" class="submit-btn">Valider</button>
+        </div>
+    </div>
+</div>

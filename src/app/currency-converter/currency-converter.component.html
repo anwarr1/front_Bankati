@@ -1,0 +1,63 @@
+
+<body>
+  <div class="content">
+    <div class="container">
+      <h1>Convertisseur des devises</h1>
+      <div class="separator"></div>
+      <div class="converter">
+        <div class="from">
+          <label for="fromCurrency" class="sr-only">Devise d'origine</label>
+          <div class="currency-selector">
+            <img [src]="getFlagUrl(carte.devise)" alt="Drapeau" class="flag">
+          </div>
+          <!-- <p aria-label="Montant à convertir">{{ portefeuille.solde }}</p> -->
+          <input type="number" [(ngModel)]="convertedAmount" placeholder="{{ carte.solde }}" readonly>
+        </div>
+
+        <div class="switch">
+          <img src="assets/images/icons8-change-96.png" alt="Description of image"
+            style="width: 100px; height: 100px; margin-right: 20px;" (click)="convert(toCurrency,carte)">
+        </div>
+
+        <div class="to">
+          <label for="toCurrency" class="sr-only">Devise de destination</label>
+          <div class="currency-selector">
+            <img [src]="getFlagUrl(toCurrency)" alt="Drapeau" class="flag">
+            <select [(ngModel)]="toCurrency" id="toCurrency" aria-label="Devise de destination">
+              <option value="USD">USD - Dollar américain</option>
+              <option value="EUR">EUR - Euro</option>
+              <option value="MAD">MAD - Dirham</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="info">
+        <p class="expected-balance">Solde attendu : {{expectedAmount()}} {{toCurrency}}</p>
+      </div>
+
+      <div class="chart-container">
+        <canvas id="myChart"></canvas>
+      </div>
+
+      <div class="details">
+        <table>
+          <thead>
+            <tr>
+              <th>Devise à vendre</th>
+              <th>Devise à acheter</th>
+              <th>Taux</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let key of ['EUR', 'MAD', 'USD']">
+              <td>{{ fromCurrency }}</td>
+              <td>{{ key }}</td>
+              <td>{{ exchangeRates[key] }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</body>

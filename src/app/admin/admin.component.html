@@ -1,0 +1,278 @@
+<div class="container">
+  <div class="sidebar">
+    <div class="profile">
+      <span class="email">nx123&#64;gmail.com</span>
+    </div>
+
+    <div class="menu-section">
+      <span class="section-title">MANAGE</span>
+      <ul>
+        <li>
+          <a routerLink="/dashboard">
+            <i class='bx bx-grid-alt'></i>Dashboard
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="menu-section">
+      <span class="section-title">SETTINGS</span>
+      <ul>
+        <li>
+          <a (click)="logout()">
+            <i class='bx bx-log-out'></i>Logout
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <main>
+    <div class="main-content">
+      <div class="content-wrapper">
+        <div class="header" style="background: #374133;">
+          <div class="title-group">
+            <h1 class="title">Gestion des Employés</h1>
+            <div class="header-decoration"></div>
+          </div>
+          <div class="header-buttons">
+            <button class="consult-client-button" (click)="goToClients()">
+              <i class="fas fa-users"></i>
+              Consulter Client
+            </button>
+            <button class="add-employee-button" (click)="goToCreateAgent()">
+              <i class="fas fa-plus"></i>
+              Ajouter un Employé
+            </button>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <table class="user-table">
+            <thead>
+              <tr>
+                <th class="checkbox-column">
+                  <input type="checkbox" class="select-all">
+                </th>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Adresse</th>
+                <th>Téléphone</th>
+                <th class="actions-column">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let agent of agents; let i = index trackBy: trackByAgentId">
+                <td class="checkbox-column">
+                  <input type="checkbox" class="select-row">
+                </td>
+                <td>{{ agent.firstname }} {{ agent.lastname }}</td>
+                <td class="email-cell">{{ agent.email }}</td>
+                <td>{{ agent.address || '25 Chaumont Rd, Portland, USA' }}</td>
+                <td>{{ agent.phonenumber }}</td>
+                <td class="actions-column">
+                  <button class="action-btn edit" (click)="editAgent(agent)">
+                    <i class="fas fa-pencil-alt"></i> Modifier
+                  </button>
+                  <button class="action-btn delete" (click)="deleteAgent(agent.id)">
+                    <i class="fas fa-trash-alt"></i> Supprimer
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Modal pour la création d'agent -->
+<div class="modal-overlay" *ngIf="isCreateAgentModalOpen">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button class="close-btn" (click)="closeCreateAgentModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="form-container">
+        <div class="form-right">
+          <!-- Ligne Nom et Prénom -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nom">Nom</label>
+              <input type="text" id="nom" [(ngModel)]="formData.lastname" name="lastname" placeholder="NOM" required>
+            </div>
+            <div class="form-group">
+              <label for="prenom">Prénom</label>
+              <input type="text" id="prenom" [(ngModel)]="formData.firstname" name="firstname" placeholder="PRÉNOM" required>
+            </div>
+          </div>
+
+          <!-- Ligne Pièce d'identité et Adresse -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="piece_identite">N° Pièce d'identité</label>
+              <input type="text" id="piece_identite" [(ngModel)]="formData.numCin" name="numCin" placeholder="N° PIÈCE D'IDENTITÉ" required>
+            </div>
+            <div class="form-group">
+              <label for="address">Adresse</label>
+              <input type="text" id="address" [(ngModel)]="formData.address" name="address" placeholder="ADRESSE" required>
+            </div>
+          </div>
+
+          <!-- Date de naissance -->
+          <div class="form-group">
+            <label for="date_naissance">Date de naissance</label>
+            <input type="date" id="date_naissance" [(ngModel)]="formData.birthdate" name="birthdate" required>
+          </div>
+
+          <!-- Ligne Email et Confirmation Email -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" [(ngModel)]="formData.email" name="email" placeholder="EMAIL" required>
+            </div>
+            <div class="form-group">
+              <label for="confirm_email">Confirmation Email</label>
+              <input type="email" id="confirm_email" [(ngModel)]="formData.emailConfirmation" name="emailConfirmation" placeholder="CONFIRMATION EMAIL" required>
+            </div>
+          </div>
+
+          <!-- Numéro de téléphone -->
+          <div class="form-group">
+            <label for="telephone">Numéro de téléphone</label>
+            <input type="tel" id="telephone" [(ngModel)]="formData.phonenumber" name="phonenumber" placeholder="NUMÉRO DE TÉLÉPHONE" required>
+          </div>
+
+          <!-- Ligne Immatriculation et Patente -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="immatriculation">N° d'immatriculation</label>
+              <input type="text" id="immatriculation" [(ngModel)]="formData.numLicence" name="numLicence" placeholder="N° D'IMMATRICULATION">
+            </div>
+            <div class="form-group">
+              <label for="patente">N° de patente</label>
+              <input type="text" id="patente" [(ngModel)]="formData.numRegCom" name="numRegCom" placeholder="N° DE PATENTE">
+            </div>
+          </div>
+
+          <!-- Pièces justificatives -->
+          <div class="form-group">
+            <label for="cinRecto">Recto de la CIN</label>
+            <input type="file" id="cinRecto" (change)="onFileSelected($event, 'cinRecto')" required>
+          </div>
+          <div class="form-group">
+            <label for="cinVerso">Verso de la CIN</label>
+            <input type="file" id="cinVerso" (change)="onFileSelected($event, 'cinVerso')" required>
+          </div>
+
+          <button type="submit" class="submit-btn" [disabled]="isloading">
+            <ng-container *ngIf="!isloading; else loading">
+              ENREGISTRER
+            </ng-container>
+            <ng-template #loading>
+              <div class="spinner"></div>
+            </ng-template>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for editing agent -->
+<div *ngIf="selectedAgent" class="modal-overlay">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Modifier les informations de l'agent</h2>
+      <button class="close-btn" (click)="cancelEdit()">×</button>
+    </div>
+    <div class="modal-body">
+      <form #editForm="ngForm" (ngSubmit)="saveAgent(editForm)" class="form-container">
+        <div class="form-right">
+          <!-- Ligne Nom et Prénom -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nom">Nom</label>
+              <input
+                type="text"
+                id="nomU"
+                [(ngModel)]="selectedAgent.lastname"
+                name="lastname"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="prenom">Prénom</label>
+              <input
+                type="text"
+                id="prenomU"
+                [(ngModel)]="selectedAgent.firstname"
+                name="firstname"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              id="emailU"
+              [(ngModel)]="selectedAgent.email"
+              name="email"
+              required
+            />
+          </div>
+
+          <!-- Numéro de téléphone -->
+          <div class="form-group">
+            <label for="telephone">Numéro de téléphone</label>
+            <input
+              type="tel"
+              id="telephoneU"
+              [(ngModel)]="selectedAgent.phonenumber"
+              name="phonenumber"
+              required
+            />
+          </div>
+
+          <!-- Role -->
+          <div class="form-group">
+            <label for="role">Role</label>
+            <input
+              type="text"
+              id="role"
+              [(ngModel)]="selectedAgent.role"
+              name="role"
+              required
+            />
+          </div>
+
+          <!-- Description -->
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea
+              id="descriptionU"
+              [(ngModel)]="selectedAgent.description"
+              name="description"
+              required
+            ></textarea>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="submit-btn" [disabled]="isloading" (click)="saveAgent(editForm)">
+        <ng-container *ngIf="!isloading; else loading">
+          Enregister
+        </ng-container>
+        <ng-template #loading>
+          <div class="spinner"></div>
+        </ng-template>
+      </button>
+      <button class="cancel-btn" (click)="cancelEdit()">Annuler</button>
+    </div>
+  </div>
+</div>

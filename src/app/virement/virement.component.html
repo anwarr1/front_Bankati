@@ -1,0 +1,110 @@
+<div class="sidebar">
+    <div class="profile">
+        <span class="email">rix123&#64;gmail.com</span>
+    </div>
+
+    <div class="menu-section">
+        <span class="section-title">MANAGE</span>
+        <ul>
+            <li><a routerLink="/dashboard"><i class='bx bx-grid-alt'></i>Dashboard</a></li>
+            <li><a routerLink="/cart"><i class='bx bx-credit-card'></i>Bank Card</a></li>
+            <li><a routerLink="/facture"><i class='bx bx-file'></i>Factures</a></li>
+            <li><a routerLink="/virement"><i class='bx bx-transfer'></i>Virement</a></li>
+            <li><a routerLink="/recharge"><i class='bx bx-refresh'></i>Recharge</a></li>
+            <li><a routerLink="/creancier"><i class='bx bx-user'></i>Creancier</a></li>
+        </ul>
+    </div>
+
+    <div class="menu-section">
+        <span class="section-title">SETTINGS</span>
+        <ul>
+            <li><a routerLink="/profile"><i class='bx bx-user'></i>Profile</a></li>
+            <li><a (click)="logout()"><i class='bx bx-log-out'></i>Logout</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="content">
+    <div class="container">
+        <div class="header-section">
+            <h1><i class='bx bx-transfer-alt transfer-icon'></i> Effectuer un virement</h1>
+            <div class="separator"></div>
+        </div>
+
+        <div class="transfer-card">
+            <div class="card-decoration">
+                <div class="card-chip">
+                    <i class='bx bxs-chip'></i>
+                </div>
+                <div class="card-wave"></div>
+            </div>
+            
+            <div class="transfer-content">
+                <div class="transfer-form">
+                    <div class="form-group">
+                        <label><i class='bx bxs-user'></i> RIB du Bénéficiaire</label>
+                        <div class="input-group">
+                            <input type="text" id="beneficiaryRIB" [(ngModel)]="beneficiaryRIB"
+                                placeholder="Nom du bénéficiaire" aria-label="Beneficiary RIB">
+                            <button class="add-beneficiary-btn" (click)="openBeneficiaryModal()">
+                                <i class="fas fa-user-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class='bx bxs-bank'></i> Compte à débiter</label>
+                        <select class="input" [(ngModel)]="compte" name="compte" required>
+                            <option [ngValue]="null" disabled>Selection le compte débiteur</option>
+                            <option *ngFor="let compte of comptes" [ngValue]="compte">
+                              {{ compte.rib }} - {{ compte.bank }}
+                            </option>
+                          </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class='bx bx-money'></i> Montant</label>
+                        <div class="amount-input">
+                            <input type="number" id="amount" [(ngModel)]="amount" 
+                                placeholder="Montant à transférer" aria-label="Amount">
+                            <span class="currency">MAD</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class='bx bx-message-detail'></i> Motif</label>
+                        <input type="text" id="reason" [(ngModel)]="reason" 
+                            placeholder="Motif du virement" aria-label="Reason">
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class='bx bx-calendar'></i> Date d'exécution</label>
+                        <div class="input-group">
+                            <input type="text" id="executionDate" [(ngModel)]="executionDate" 
+                                placeholder="Maintenant" aria-label="Execution Date" readonly>
+                            <button class="date-picker-btn" (click)="openDatePicker()">
+                                <i class="fas fa-calendar-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="recurringOrder" class="switch-label">
+                            <input type="checkbox" id="recurringOrder" [(ngModel)]="recurringOrder" class="switch-input">
+                            <span class="slider round"></span>
+                            Saisir un ordre permanent
+                        </label>
+                    </div>
+
+                    <button (click)="transfer()" class="submit-btn">
+                        <i class='bx bx-send'></i>
+                        Effectuer le virement
+                    </button>
+                </div>
+                <div class="transfer-illustration">
+                    <img src="../../../assets/pictures/virement.PNG" alt="Illustration virement" class="transfer-image">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,142 @@
+<body>
+    <div class="sidebar">
+        <div class="profile">
+            <span class="email">Bonjour</span>
+        </div>
+
+        <div class="menu-section">
+            <span class="section-title">MANAGE</span>
+            <ul>
+                <li><a routerLink="/dashboard"><i class='bx bx-grid-alt'></i>Dashboard</a></li>
+                <li><a routerLink="/cart"><i class='bx bx-credit-card'></i>Bank Card</a></li>
+                <li><a routerLink="/facture"><i class='bx bx-file'></i>Factures</a></li>
+                <li><a routerLink="/virement"><i class='bx bx-transfer'></i>Virement</a></li>
+                <li><a routerLink="/recharge"><i class='bx bx-refresh'></i>Recharge</a></li>
+                <li><a routerLink="/creancier"><i class='bx bx-user'></i>Creancier</a></li>
+                <li><a routerLink="/crypto-wallet-login"><i class='bx bxs-wallet'></i>Cryptowallet</a></li>
+            </ul>
+        </div>
+
+        <div class="menu-section">
+            <span class="section-title">SETTINGS</span>
+            <ul>
+                <li><a routerLink="/profile"><i class='bx bx-user'></i>Profile</a></li>
+                <li><a (click)="logout()"><i class='bx bx-log-out'></i>Logout</a></li>
+            </ul>
+        </div>
+    </div>
+    @if (isLoading) {
+      <div class="loading-spinner">
+        <div class="spinner"></div>
+        <p>Chargement en cours...</p>
+      </div>
+    }
+    @else {
+    <div class="container">
+        <div class="stats-cards">
+            <div class="stat-card red">
+                <div class="icon-wrapper">
+                    <i class='bx bx-wallet'></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-value">{{portefeuilles.solde}} DHS</span>
+                    <span class="stat-label">Solde Portefeuille</span>
+                </div>
+            </div>
+
+            <div class="stat-card yellow">
+                <div class="icon-wrapper">
+                    <i class='bx bx-group'></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-value">{{nbr_compte}}</span>
+                    <span class="stat-label">Nombre de Compte</span>
+                </div>
+            </div>
+
+            <div class="stat-card green">
+                <div class="icon-wrapper">
+                    <i class='bx bx-money'></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-value">{{sum_tr}} DHS</span>
+                    <span class="stat-label">Montant Dépensé</span>
+                </div>
+            </div>
+
+            <div class="stat-card purple">
+                <div class="icon-wrapper">
+                    <i class='bx bx-dollar'></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-value">{{sum_vr}} DHS</span>
+                    <span class="stat-label">Montant Reçu</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-grid">
+            <!-- Transactions Card -->
+            <div class="transactions-card">
+                <h3>Transactions Récentes</h3>
+                <div class="transactions-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Date</th>
+                                <th>Montant</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (transaction of transactions; track transaction.id) {
+                                <tr>
+                                    <td>
+                                        <div class="user-info">
+                                            <div class="user-avatar" [ngClass]="transaction.typeTransaction === 'DEBIT' ? 'red' : 'green'">
+                                                {{transaction.typeTransaction.charAt(0)}}
+                                            </div>
+                                            <div class="user-name">{{transaction.typeTransaction}}</div>
+                                        </div>
+                                    </td>
+                                    <td>{{formatDate(transaction.date)}}</td>
+                                    <td>{{transaction.montant}} DHS</td>
+                                    <td>
+                                        <span class="status-badge" [ngClass]="transaction.typeTransaction === 'DEBIT' ? 'failed' : 'success'">
+                                            {{transaction.typeTransaction}}
+                                        </span>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Bank Accounts Card -->
+            <div class="bank-accounts-card">
+                <h3>Comptes Bancaires</h3>
+                <div class="accounts-list">
+                    @for (compte of comptes; track compte.id) {
+                        <div class="account-item">
+                            <div class="account-info">
+                                <div class="bank-icon">
+                                    <i class='bx bxs-bank'></i>
+                                </div>
+                                <div class="account-details">
+                                    <div class="account-name">{{compte.bank}}</div>
+                                    <div class="account-number">{{compte.rib}}</div>
+                                </div>
+                            </div>
+                            <div class="account-balance">
+                                <span class="amount">{{compte.solde}} DHS</span>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+  }
+</body>

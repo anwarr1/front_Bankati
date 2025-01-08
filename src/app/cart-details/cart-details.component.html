@@ -1,0 +1,123 @@
+<body>
+  <div class="sidebar">
+    <div class="profile">
+      <span class="email">rix123&#64;gmail.com</span>
+    </div>
+  
+    <div class="menu-section">
+      <span class="section-title">MANAGE</span>
+      <ul>
+        <li><a routerLink="/dashboard"><i class='bx bx-grid-alt'></i>Dashboard</a></li>
+        <li><a routerLink="/cart"><i class='bx bx-credit-card'></i>Bank Card</a></li>
+        <li><a routerLink="/facture"><i class='bx bx-file'></i>Factures</a></li>
+        <li><a routerLink="/virement"><i class='bx bx-transfer'></i>Virement</a></li>
+        <li><a routerLink="/recharge"><i class='bx bx-refresh'></i>Recharge</a></li>
+        <li><a routerLink="/creancier"><i class='bx bx-user'></i>Creancier</a></li>
+      </ul>
+    </div>
+  
+    <div class="menu-section">
+      <span class="section-title">SETTINGS</span>
+      <ul>
+        <li><a routerLink="/profile"><i class='bx bx-user'></i>Profile</a></li>
+        <li><a (click)="logout()"><i class='bx bx-log-out'></i>Logout</a></li>
+      </ul>
+    </div>
+  </div>
+      <main class="content-area">
+          <div class="page-header">
+              <div class="header-content">
+                  <div class="title-badge">
+                      <i class='bx bx-credit-card'></i>
+                      <h2>Information sur la Carte Virtuelle</h2>
+                  </div>
+                  <div class="header-decoration"></div>
+                  <button class="button_back">
+                      <svg height="16" width="16" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1024 1024"><path d="M874.690416 495.52477c0 11.2973-9.168824 20.466124-20.466124 20.466124l-604.773963 0 188.083679 188.083679c7.992021 7.992021 7.992021 20.947078 0 28.939099-4.001127 3.990894-9.240455 5.996574-14.46955 5.996574-5.239328 0-10.478655-1.995447-14.479783-5.996574l-223.00912-223.00912c-3.837398-3.837398-5.996574-9.046027-5.996574-14.46955 0-5.433756 2.159176-10.632151 5.996574-14.46955l223.019353-223.029586c7.992021-7.992021 20.957311-7.992021 28.949332 0 7.992021 8.002254 7.992021 20.957311 0 28.949332l-188.073446 188.073446 604.753497 0C865.521592 475.058646 874.690416 484.217237 874.690416 495.52477z"></path></svg>
+                      <span class="button_back_text" (click)="goBack()">Retour</span>
+                  </button>
+              </div>
+          </div>
+  
+         <div class="main-card-container" >
+               <div class="top-row">
+                   <div class="info-card" (click)="navigateToConvert(carte)">
+                      <div class="card-icon" style="background-color: rgba(255, 99, 99, 0.1);">
+                          <i class='bx bx-money' style="color: #ff6363;"></i>
+                      </div>
+                      <div class="card-content">
+                          <h3>Devise de la carte</h3>
+                          <p>Convertir la devise de votre carte</p>
+                      </div>
+                  </div>
+                   <div class="info-card" (click)="openDialogPlafond()">
+                     <div class="card-icon" style="background-color: rgba(255, 165, 0, 0.1);">
+                         <i class='bx bx-slider' style="color: #ffa500;"></i>
+                     </div>
+                     <div class="card-content">
+                         <h3>Plafonds de la carte</h3>
+                         <p>Fixez le plafond de paiement de cette carte</p>
+                     </div>
+                   </div>
+                    <div class="info-card" (click)="openDialogStatus()">
+                       <div class="card-icon" style="background-color: rgba(76, 175, 80, 0.1);">
+                           <i class='bx bx-toggle-right' style="color: #4CAF50;"></i>
+                       </div>
+                       <div class="card-content">
+                          <h3>Statut de la carte</h3>
+                          <p>Activez/Désactiver cette carte</p>
+                       </div>
+                  </div>
+              </div>
+              <div class="bottom-row">
+                 <div class="card-container" [ngClass]="getCardClass(couleur)" class="card-container">
+                   <div class="card">
+                      <img class="chip" src="/assets/images/chip.png"/>
+                      <img class="contactless" src="/assets/images/wifi-signal.png"/>
+                      <img class="visa"src="/assets/images/visa.png"/>
+                       <p class="card-number">{{ format(carte.numeroCarte) }}</p>
+                       <div class="arrow"></div>
+                       <p class="card-name">M John Doe</p>
+                       <p class="card-expire">Expire {{ carte.dateExpiration }}</p>
+                       <p class="bank-name">CVV {{carte.cvv}}</p>
+                    </div>
+                </div>
+                 <div class="card-details-section">
+                     <div class="balance-container">
+                             <div class="balance-amount">{{carte.solde}} {{carte.devise}}</div>
+                             <div class="balance-limit">
+                              {{carte.solde}} {{carte.devise}} / from {{carte.solde}} {{carte.devise}}
+                               <div class="balance-bar-container">
+                                <div class="balance-bar" [ngStyle]="{'width.%': getRemainingBalancePercentage(carte)}"></div>
+                            </div>
+                          </div>
+                     </div>
+                     <div class="card-info-container">
+                       <div class="card-info-header">Information sur la carte</div>
+                       <div class="card-info-item">
+                         <span class="info-label">Card Name:</span>
+                         <span class="info-value">Main Card</span>
+                      </div>
+                      <div class="card-info-item">
+                          <span class="info-label">Plafond de la carte:</span>
+                          <span class="info-value"> {{carte.plafond}}</span>
+                       </div>
+                       <div class="card-info-item">
+                          <span class="info-label">Statut:</span>
+                          <span class="info-value">{{carte.statut}}</span>
+                       </div>
+                       <div class="card-info-item">
+                          <span class="info-label">Name:</span>
+                          <span class="info-value">Rara Avis</span>
+                        </div>
+                        <div class="card-info-item">
+                           <span class="info-label">Date d'expiration:</span>
+                           <span class="info-value">{{ carte.dateExpiration }}</span>
+                        </div>
+                   </div>
+                 </div>
+              </div>
+         </div>
+      </main>
+    </body>
+  

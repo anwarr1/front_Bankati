@@ -1,0 +1,136 @@
+<body>
+  <div class="container">
+    <div class="sidebar">
+      <div class="profile">
+        <span class="email">rix123&#64;gmail.com</span>
+      </div>
+  
+      <div class="menu-section">
+        <span class="section-title">MANAGE</span>
+        <ul>
+          <li><a routerLink="/dashboard"><i class='bx bx-grid-alt'></i>Dashboard</a></li>
+          <li><a routerLink="/cart"><i class='bx bx-credit-card'></i>Bank Card</a></li>
+          <li><a routerLink="/facture"><i class='bx bx-file'></i>Factures</a></li>
+          <li><a routerLink="/virement"><i class='bx bx-transfer'></i>Virement</a></li>
+          <li><a routerLink="/recharge"><i class='bx bx-refresh'></i>Recharge</a></li>
+          <li><a routerLink="/creancier"><i class='bx bx-user'></i>Creancier</a></li>
+        </ul>
+      </div>
+  
+      <div class="menu-section">
+        <span class="section-title">SETTINGS</span>
+        <ul>
+          <li><a routerLink="/profile"><i class='bx bx-user'></i>Profile</a></li>
+          <li><a routerLink="/logout"><i class='bx bx-log-out'></i>Logout</a></li>
+        </ul>
+      </div>
+    </div>
+  
+    <main>
+      <section class="creancier-section">
+        <div class="page-header">
+          <div class="header-content">
+            <div class="title-badge">
+              <i class='bx bx-building-house'></i>
+              <h2>Consultez et gérez vos créanciers</h2>
+            </div>
+            <div class="header-decoration"></div>
+          </div>
+        </div>
+  
+        <div class="filter-section">
+          <div class="filter-container">
+            <i class='bx bx-filter-alt'></i>
+            <select (change)="onFilterChange($event)" class="filter-select">
+              <option value="all">Toutes les catégories</option>
+              <option value="taxes">Impôts, Taxes et Frais Portuaires</option>
+              <option value="electricity_water">Eau et Électricité</option>
+              <option value="internet_purchases">Achats Internet</option>
+            </select>
+          </div>
+        </div>
+  
+        <!-- Show Spinner if Data is Loading -->
+        <div *ngIf="isLoading" class="loading-container">
+          <div class="spinner"></div>
+        </div>
+  
+        <!-- Creditor Grid -->
+        <div class="creditor-grid">
+          <div class="creditor-card" *ngFor="let creditor of filteredCreditors" (click)="openModal(creditor.id)">
+            <div class="card-image">
+              <img [src]="creditor.imageUrl" [alt]="creditor.nom" />
+            </div>
+            <div class="card-content">
+              <h3>{{ creditor.nom }}</h3>
+              <i class='bx bx-chevron-right'></i>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Modal -->
+        <div *ngIf="isModalOpen" class="modal-overlay">
+          <div class="modal-container">
+            <div class="modal-header">
+              <h2><i class='bx bx-building'></i> {{ selectedCreditor?.nom }}</h2>
+              <button class="close-btn" (click)="closeModal()">
+                <i class='bx bx-x'></i>
+              </button>
+            </div>
+  
+            <div class="modal-content">
+              <div class="table-wrapper" *ngIf="factures.length > 0">
+                <table>
+                  <thead>
+                  <tr>
+                    <th class="checkbox-column">
+                      <label class="custom-checkbox">
+                        <input type="checkbox" (change)="toggleSelectAll($event)" />
+                        <span class="checkmark"></span>
+                      </label>
+                    </th>
+                    <th><i class='bx bx-money'></i> Montant</th>
+                    <th><i class='bx bx-building-house'></i> Fournisseur</th>
+                    <th><i class='bx bx-calendar'></i> Date d'échéance</th>
+                    <th><i class='bx bx-info-circle'></i> Statut</th>
+                    <th><i class='bx bx-cog'></i> Action</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let facture of factures">
+                    <td class="checkbox-column">
+                      <label class="custom-checkbox">
+                        <input type="checkbox" [id]="'chk' + facture.id" />
+                        <span class="checkmark"></span>
+                      </label>
+                    </td>
+                    <td><span class="amount">{{ facture.montant }} DH</span></td>
+                    <td>{{ facture.fournisseur.nom }}</td>
+                    <td>{{ facture.dateLimite | date:'dd/MM/yyyy' }}</td>
+                    <td><span [class]="'status-badge status-' + facture.statut">{{ facture.statut }}</span></td>
+                    <td *ngIf="facture.statut.toString() === 'PAYÉE'; else nonPaye">
+                      <span class="status-done"><i class='bx bx-check'></i></span>
+                    </td>
+                    <ng-template #nonPaye>
+                      <td>
+                        <button class="btn-primary" (click)="payerFacture(facture)">
+                          <i class='bx bx-credit-card'></i>
+                          <span>Payer</span>
+                        </button>
+                      </td>
+                    </ng-template>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div *ngIf="factures.length === 0" class="no-factures">
+                <i class='bx bx-info-circle'></i>
+                <p>Aucune facture disponible pour ce créancier</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  </body>
