@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../service/Auth.service';
-import {Router, RouterLink} from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthResponse } from '../model/auth-response.model';
-import {FormsModule} from "@angular/forms";
-import {NgClass, NgIf} from "@angular/common";
+import { FormsModule } from "@angular/forms";
+import { NgClass, NgIf } from "@angular/common";
 import { SharedDataServiceService } from '../service/shared-data-service.service';
+import { VirementService } from '../service/VirementService.service';
 
 @Component({
   selector: 'app-login1',
@@ -26,16 +27,22 @@ export class Login1Component {
   errorMessage: string | null = null;
   showPassword: boolean = false;
   isFirstLogin = true;
+  testV = "";
 
 
 
-  constructor(private authService: AuthService, private router: Router,private sharedDataService : SharedDataServiceService) {}
+  constructor(private authService: AuthService, private router: Router, private sharedDataService: SharedDataServiceService, private virementS: VirementService) { }
   ngOnInit(): void {
     if (this.authService.isAuthenticated()) {
       console.log('L\'utilisateur est authentifié');
     } else {
       console.log('L\'utilisateur n\'est pas authentifié');
     }
+    this.virementS.testF().subscribe((response) => {
+      console.log('Objet reçu hahowa:', response); // Log de l'objet reçu
+
+      this.testV = response;
+    });
   }
 
   onLogin(): void {

@@ -11,6 +11,7 @@ import { Compte } from './PaiementEnLigneService.service';
 })
 export class VirementService {
     private baseUrl = 'https://transaction-service-production-1.up.railway.app/api/virements';  // Change to your API URL
+    private test = 'https://transaction-service-production-1.up.railway.app/api/test';  // Change to your API URL
 
     constructor(private http: HttpClient) { }
 
@@ -20,5 +21,8 @@ export class VirementService {
     }
     getCompteByRib(rib: String): Observable<Compte> {
         return this.http.get<Compte>(`${this.baseUrl}/${rib}`);
+    }
+    testF(): Observable<any> {
+        return this.http.get(this.test);
     }
 }
